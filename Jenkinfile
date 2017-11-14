@@ -1,0 +1,26 @@
+pipeline
+{
+
+    agent any
+        tools {
+        maven 'M3'
+    }
+    stages {
+      stage('Build')
+      {
+          steps {
+         sh 'mvn clean install -f pom.xml'
+      }
+          }
+/*     stage('Publish')
+      {
+
+      } */
+  stage('Provision/Devploy application'){
+      steps {
+             sh 'cd docker'
+			       sh 'docker-compose up'
+          }
+          }  
+    }
+   }
